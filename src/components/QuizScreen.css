@@ -27,7 +27,7 @@
 
 .first-top-bar-content {
   display: grid;
-  grid-template-columns: 120px 120px 220px 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
   align-items: center;
   width: 100%;
@@ -191,14 +191,41 @@
 
 .sub-left-section {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: baseline;
+  gap: 8px;
 }
 
-.main-sub-title {
+.exam-title {
   font-family: 'Noto Sans Bengali', sans-serif;
   font-weight: bold;
   font-size: 18px;
+  color: #000000;
+}
+
+.exam-subtitle {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  color: #000000;
+}
+
+.sub-right-section {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.student-info-label {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #000000;
+}
+
+.student-name {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
   color: #000000;
 }
 

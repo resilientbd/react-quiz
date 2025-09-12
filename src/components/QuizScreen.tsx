@@ -9,9 +9,17 @@ const QuizScreen: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<{[key: number]: number}>({});
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
-  const [progress, setProgress] = useState(100);
 
   const currentQuestion = questions[currentQuestionIndex];
+
+  // Calculate progress based on answered questions
+  const calculateProgress = () => {
+    const answeredCount = Object.keys(selectedOptions).length;
+    const totalQuestions = questions.length;
+    return totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+  };
+
+  const progress = calculateProgress();
 
   // Timer effect
   useEffect(() => {
@@ -19,9 +27,7 @@ const QuizScreen: React.FC = () => {
 
     const timer = setInterval(() => {
       setTimeLeft(prev => {
-        const newTime = prev - 1;
-        setProgress(Math.round((newTime / 900) * 100));
-        return newTime;
+        return prev - 1;
       });
     }, 1000);
 
@@ -114,7 +120,12 @@ const QuizScreen: React.FC = () => {
       {/* Sub-Top Bar */}
       <div className="sub-top-bar">
         <div className="sub-left-section">
-          <div className="main-sub-title">লোডার এবং আনলোডার ওয়ার্কার - বাংলা</div>
+          <div className="exam-title">পরীক্ষা:</div>
+          <div className="exam-subtitle">লোডার এবং আনলোডার ওয়ার্কার - বাংলা</div>
+        </div>
+        <div className="sub-right-section">
+          <div className="student-info-label">পরীক্ষার্থী:</div>
+          <div className="student-name">Hasan Al Mamun</div>
         </div>
       </div>
 
