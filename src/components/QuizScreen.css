@@ -273,7 +273,7 @@
   align-items: center;
   overflow-y: auto;
   top: 116px;
-  left: calc(50% - 600px - 10px);
+  left: calc(50% - 600px + 10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   z-index: 10;
   margin-right: 5px;
