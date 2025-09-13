@@ -10,6 +10,50 @@ To resolve data mismatch issues:
 1. Use the "সমস্ত ডেটা মুছুন" (Clear All Data) button in the admin panel
 2. Or run the reset script in the browser console (see below)
 
+## Docker Deployment
+
+This application can be deployed using Docker for both development and production environments.
+
+### Production Deployment
+
+To build and run the application in production mode:
+
+```bash
+# Build and start the production container
+docker-compose -f docker-compose.prod.yml up --build
+
+# Or build and run in detached mode
+docker-compose -f docker-compose.prod.yml up --build -d
+```
+
+The application will be available at http://localhost
+
+### Development Deployment
+
+To run the application in development mode with hot reloading:
+
+```bash
+# Build and start the development container
+docker-compose -f docker-compose.dev.yml up --build
+
+# Or build and run in detached mode
+docker-compose -f docker-compose.dev.yml up --build -d
+```
+
+The application will be available at http://localhost:3000
+
+### Manual Docker Build
+
+To manually build and run the Docker image:
+
+```bash
+# Build the image
+docker build -t quizapp .
+
+# Run the container
+docker run -p 80:80 quizapp
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
