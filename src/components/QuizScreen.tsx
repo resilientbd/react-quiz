@@ -187,7 +187,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
                 ></div>
               </div>
             </div>
-            <div className="progress-text">অগ্রগতি {progress}%</div>
+            <div className="progress-text">অগ্রগতি {convertToBanglaNumber(progress)}%</div>
           </div>
           
           {/* Button Section */}
