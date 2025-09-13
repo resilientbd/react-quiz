@@ -1,16 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import questionsData from '../data/questions.json';
+import configData from '../data/config.json';
 import { Question } from '../interfaces/Question';
 import './QuizScreen.css';
+import MainContent from './MainContent';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-const QuizScreen: React.FC = () => {
-  const [questions] = useState<Question[]>(questionsData);
+interface QuizScreenProps {
+  questions: Question[];
+  updateQuestions: (questions: Question[]) => void;
+}
+
+const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) => {
+  const [examConfig, setExamConfig] = useState(configData);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<{[key: number]: number}>({});
-  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(configData.totalTime); // Use config time
 
-  const currentQuestion = questions[currentQuestionIndex];
+  console.log('QuizScreen rendering with questions:', questions.length);
+
+  // Load config from localStorage
+  useEffect(() => {
+    const savedConfig = localStorage.getItem('examConfig');
+    if (savedConfig) {
+      const config = JSON.parse(savedConfig);
+      setExamConfig(config);
+      setTimeLeft(config.totalTime);
+    }
+  }, []);
+
+  // Update examConfig when localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedConfig = localStorage.getItem('examConfig');
+      if (savedConfig) {
+        const config = JSON.parse(savedConfig);
+        setExamConfig(config);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // Reset current question index if it's out of bounds
+  useEffect(() => {
+    if (currentQuestionIndex >= questions.length && questions.length > 0) {
+      setCurrentQuestionIndex(questions.length - 1);
+    } else if (questions.length === 0) {
+      setCurrentQuestionIndex(0);
+    }
+  }, [questions, currentQuestionIndex]);
+
+  // Listen for changes in localStorage to sync questions
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'quizQuestions' && e.newValue) {
+        try {
+          const updatedQuestions = JSON.parse(e.newValue);
+          // We don't directly update state here since App.tsx manages the questions
+          // This is just for logging
+          console.log('Questions updated in localStorage:', updatedQuestions.length);
+        } catch (error) {
+          console.error('Error parsing updated questions:', error);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   // Calculate progress based on answered questions
   const calculateProgress = () => {
@@ -35,9 +93,10 @@ const QuizScreen: React.FC = () => {
   }, [timeLeft]);
 
   const handleOptionSelect = (optionIndex: number) => {
+    if (questions.length === 0) return;
     setSelectedOptions(prev => ({
       ...prev,
-      [currentQuestion.id]: optionIndex
+      [questions[currentQuestionIndex].id]: optionIndex
     }));
   };
 
@@ -71,6 +130,20 @@ const QuizScreen: React.FC = () => {
     if (seconds < 600) return 'warning'; // < 10 minutes
     return ''; // Normal
   };
+
+  // Handle case when there are no questions
+  if (questions.length === 0) {
+    return (
+      <div className="quiz-container">
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          <h2>কোন প্রশ্ন পাওয়া যায়নি</h2>
+          <p>এডমিন প্যানেল থেকে প্রশ্ন যোগ করুন।</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <div className="quiz-container">
@@ -121,11 +194,11 @@ const QuizScreen: React.FC = () => {
       <div className="sub-top-bar">
         <div className="sub-left-section">
           <div className="exam-title">পরীক্ষা:</div>
-          <div className="exam-subtitle">লোডার এবং আনলোডার ওয়ার্কার - বাংলা</div>
+          <div className="exam-subtitle">{examConfig.examTitle}</div>
         </div>
         <div className="sub-right-section">
           <div className="student-info-label">পরীক্ষার্থী:</div>
-          <div className="student-name">Hasan Al Mamun</div>
+          <div className="student-name">{examConfig.studentName}</div>
         </div>
       </div>
 
@@ -138,38 +211,17 @@ const QuizScreen: React.FC = () => {
               className={`sidebar-button ${currentQuestionIndex === index ? 'active' : ''}`}
               onClick={() => handleQuestionChange(index)}
             >
-              {currentQuestionIndex === index ? '▶ ' : ''}{index + 1}
+              {index + 1}{currentQuestionIndex === index ? ' ▶' : ''}
             </button>
           ))}
         </div>
 
-        {/* Main Question Area */}
-        <div className="question-area">
-          <div className="question-header">
-            <span className="question-number">প্রশ্ন: {currentQuestion.id}</span>
-          </div>
-          <div className="question-text">{currentQuestion.question}</div>
-          
-          {/* Options */}
-          <div className="options-container">
-            {currentQuestion.options.map((option, index) => (
-              <label key={index} className="option-label">
-                <input
-                  type="radio"
-                  name={`question-${currentQuestion.id}`}
-                  checked={selectedOptions[currentQuestion.id] === index}
-                  onChange={() => handleOptionSelect(index)}
-                />
-                <span className="option-box">{option}</span>
-              </label>
-            ))}
-          </div>
-          
-          {/* Image placeholder */}
-          <div className="image-placeholder">
-            [ছবি এখানে থাকবে]
-          </div>
-        </div>
+        {/* Main Question Area - Using MainContent component */}
+        <MainContent 
+          question={currentQuestion}
+          selectedOption={selectedOptions[questions[currentQuestionIndex].id]}
+          onOptionSelect={handleOptionSelect}
+        />
       </div>
 
       {/* Bottom Bar */}

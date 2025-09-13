@@ -7,6 +7,7 @@
   flex-direction: column;
   background-color: #f0f0f0;
   padding-top: 116px; /* Account for fixed top bars (60px + 56px) */
+  padding-bottom: 60px; /* Account for fixed bottom bar */
 }
 
 /* First Top Bar */
@@ -235,37 +236,75 @@
   flex: 1;
   overflow: hidden;
   margin-top: 10px;
+  margin-left: 70px;
+  position: relative;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 80px;
-  background-color: #E0E0E0;
-  padding: 10px;
+  width: 70px;
+  background-color: #F5F5F5;
+  padding: 10px 0;
+  border: 1px solid #CCCCCC;
+  border-right: none;
+  height: calc(100vh - 116px);
+  position: fixed;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
   overflow-y: auto;
+  top: 116px;
+  left: 0;
 }
 
 .sidebar-button {
   width: 50px;
-  height: 50px;
-  border: 2px solid #B0B0B0;
-  background-color: white;
-  border-radius: 5px;
-  font-size: 1.2em;
+  height: 35px;
+  margin: 5px 0;
+  background: #D3D3D3;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
   cursor: pointer;
+  transition: all 0.2s;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+}
+
+.sidebar-button:hover {
+  background: #E0E0E0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .sidebar-button.active {
-  background-color: #FFD700;
-  border-color: #FFA500;
+  background: #C0C0C0;
   font-weight: bold;
+  box-shadow: none;
+}
+
+/* Remove hover effect on active button */
+.sidebar-button.active:hover {
+  background: #C0C0C0;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    width: 50px;
+    top: 126px;
+    height: calc(100vh - 116px);
+  }
+  
+  .sidebar-button {
+    font-size: 12px;
+    width: 40px;
+    height: 30px;
+  }
 }
 
 /* Question Area */
@@ -279,6 +318,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   margin: 10px;
   border-radius: 10px;
+  margin-left: 70px;
 }
 
 .question-header {
@@ -316,12 +356,13 @@
 .option-box {
   padding: 15px 25px;
   background-color: #FFD700;
-  border: 2px solid #FFA500;
+  border: 2px solid #000000;
   border-radius: 5px;
   font-weight: bold;
   min-width: 120px;
   text-align: center;
   display: inline-block;
+  flex: 1;
 }
 
 .option-label input[type="radio"]:checked + .option-box {
@@ -341,9 +382,14 @@
 .bottom-bar {
   background-color: #00BFFF;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 15px 20px;
   height: 60px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .nav-button {
@@ -369,6 +415,7 @@
 .next-button {
   background-color: white;
   color: #00BFFF;
+  margin-left: 10px;
 }
 
 /* Responsive design */
@@ -402,6 +449,31 @@
     grid-row: 2;
     justify-self: end;
   }
+  
+  .sub-top-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+  
+  .sub-left-section {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .main-sub-title {
+    font-size: 16px;
+  }
+  
+  .finish-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  
+  .progress-container {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -432,5 +504,26 @@
   
   .progress-container {
     max-width: 200px;
+  }
+  
+  .question-area {
+    margin-left: 50px;
+    padding: 15px;
+  }
+  
+  .option-box {
+    padding: 10px 15px;
+    min-width: 80px;
+  }
+  
+  .bottom-bar {
+    padding: 10px 10px;
+    height: auto;
+  }
+  
+  .nav-button {
+    min-width: 100px;
+    padding: 8px 10px;
+    font-size: 0.9em;
   }
 }

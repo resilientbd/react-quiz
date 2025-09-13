@@ -3,5 +3,5 @@ export interface Question {
   question: string;
   options: string[];
   correctAnswer: number;
-  timer: number;
+  type: 'multiple-choice' | 'true-false';
 }
