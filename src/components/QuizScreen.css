@@ -3,7 +3,7 @@
 .quiz-container {
   font-family: 'Noto Sans Bengali', sans-serif;
   min-height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #FFFFFF;
   padding: 0;
   margin: 0;
 }
@@ -28,7 +28,7 @@
   font-family: 'Noto Sans Bengali', sans-serif;
   font-weight: 600;
   font-size: 14px;
-  color: #FFFFFF; /* White text */
+  color: #FFFFFF;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -61,7 +61,7 @@
 
 .clock-icon {
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.9); /* 90% opacity */
+  color: rgba(255, 255, 255, 0.9);
   width: 24px;
   height: 24px;
   display: flex;
@@ -82,24 +82,24 @@
   font-family: 'Noto Sans Bengali', sans-serif;
   font-weight: 600;
   font-size: 14px;
-  color: #FFFFFF; /* Default color */
+  color: #FFFFFF;
   font-variant-numeric: tabular-nums;
   text-align: left;
 }
 
 .timer-value.warning {
-  color: #FF9800; /* Warning color */
+  color: #FF9800;
 }
 
 .timer-value.critical {
-  color: #F44336; /* Critical color */
+  color: #F44336;
 }
 
 .progress-section {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .progress-container {
@@ -107,20 +107,21 @@
   align-items: center;
   gap: 8px;
   width: 100%;
+  justify-content: center;
 }
 
 .progress-bar {
   width: 120px;
   height: 10px;
-  background-color: rgba(176, 190, 197, 0.35); /* 35% opacity */
+  background-color: rgba(176, 190, 197, 0.35);
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background-color: #4CAF50; /* Default green */
-  width: 100%; /* Will be controlled by JavaScript */
+  background-color: #4CAF50;
+  width: 100%;
   transition: width 200ms ease-out;
   border-radius: 9999px;
 }
@@ -131,7 +132,7 @@
   font-size: 13px;
   color: #FFFFFF;
   white-space: nowrap;
-  text-align: right;
+  text-align: center;
   min-width: fit-content;
 }
 
@@ -139,10 +140,10 @@
   font-family: 'Noto Sans Bengali', sans-serif;
   font-weight: bold;
   font-size: 14px;
-  color: #FFFFFF; /* White text */
-  background-color: #E53935; /* Red background */
-  padding: 8px 16px; /* Specified padding */
-  border-radius: 6px; /* Specified border radius */
+  color: #FFFFFF;
+  background-color: #E53935;
+  padding: 8px 16px;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
@@ -151,7 +152,7 @@
 }
 
 .finish-button:hover {
-  background-color: #D32F2F; /* Hover color */
+  background-color: #D32F2F;
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
@@ -196,25 +197,31 @@
 
 /* Main Content Wrapper */
 .main-content-wrapper {
-  margin: 116px 0 90px 0;
+  margin: 0;
   position: relative;
-  min-height: calc(100vh - 116px - 90px);
+  min-height: calc(100vh - 116px - 60px);
+  padding: 0;
+  background-color: #FFFFFF;
 }
 
 /* Sidebar */
 .sidebar {
   background-color: #FFFFFF;
   border: 1px solid #EEEEEE;
-  height: 100%;
+  height: calc(100vh - 116px - 60px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   z-index: 10;
   position: sticky;
   top: 116px;
+  padding: 5px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar-button {
-  width: 52px;
-  height: 34px;
+  width: 40px;
+  height: 28px;
   background: #CCCCCC;
   border: none;
   font-weight: 600;
@@ -223,7 +230,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Noto Sans Bengali', sans-serif;
-  font-size: 16px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,7 +238,7 @@
   position: relative;
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* Default state - no notch */
@@ -292,6 +299,7 @@
   left: 0;
   right: 0;
   z-index: 100;
+  padding: 0 10%;
 }
 
 .bottom-bar {
@@ -299,6 +307,13 @@
   box-shadow: 0 -4px 12px rgba(0, 191, 255, 0.2);
   border: none;
   min-height: 60px;
+  padding: 10px 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding-right: 20px;
 }
 
 .nav-button {
@@ -339,27 +354,31 @@
 @media (max-width: 768px) {
   .first-top-bar {
     height: auto;
-    padding: 10px 0;
+    padding: 8px 0;
   }
   
   .sub-top-bar {
     height: auto;
-    padding: 10px 0;
+    padding: 8px 0;
   }
   
   .main-content-wrapper {
-    margin: 130px 0 80px 0;
+    margin: 0;
+    min-height: calc(100vh - 120px - 60px);
+    background-color: #FFFFFF;
   }
   
   .sidebar {
     position: sticky;
-    top: 130px;
+    top: 120px;
+    padding: 5px 0;
+    height: calc(100vh - 120px - 60px);
   }
   
   .sidebar-button {
-    width: 40px;
-    height: 30px;
-    font-size: 14px;
+    width: 35px;
+    height: 25px;
+    font-size: 12px;
   }
   
   .finish-button {
@@ -373,22 +392,47 @@
     padding: 8px 10px;
     font-size: 0.9em;
   }
+  
+  .bottom-bar-container {
+    padding: 0 5%;
+  }
+  
+  .bottom-bar {
+    padding-right: 30px;
+    gap: 10px;
+  }
+  
+  .progress-section {
+    align-items: center;
+  }
+  
+  .progress-container {
+    justify-content: center;
+  }
+  
+  .progress-text {
+    text-align: center;
+  }
 }
 
 @media (max-width: 576px) {
   .main-content-wrapper {
-    margin: 140px 0 70px 0;
+    margin: 0;
+    min-height: calc(100vh - 130px - 60px);
+    background-color: #FFFFFF;
   }
   
   .sidebar {
     position: sticky;
-    top: 140px;
+    top: 130px;
+    padding: 4px 0;
+    height: calc(100vh - 130px - 60px);
   }
   
   .sidebar-button {
-    width: 35px;
-    height: 28px;
-    font-size: 12px;
+    width: 30px;
+    height: 23px;
+    font-size: 11px;
   }
   
   .exam-title, .exam-subtitle {
@@ -419,11 +463,30 @@
     font-size: 12px;
   }
   
+  .progress-section {
+    align-items: center;
+  }
+  
+  .progress-container {
+    justify-content: center;
+  }
+  
   .progress-text {
     font-size: 11px;
+    text-align: center;
   }
   
   .progress-bar {
     width: 80px;
+  }
+  
+  .bottom-bar {
+    padding: 8px 0;
+    padding-right: 20px;
+    gap: 8px;
+  }
+  
+  .bottom-bar-container {
+    padding: 0 3%;
   }
 }

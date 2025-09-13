@@ -160,10 +160,10 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
       <div className="row mx-0">
         {/* First Top Bar */}
         <div className="col-12 px-0 first-top-bar">
-          <div className="container-fluid px-3 py-2">
+          <div className="container-fluid px-2 py-1">
             <div className="row align-items-center">
               {/* Info Section */}
-              <div className="col-12 col-md-3 mb-2 mb-md-0">
+              <div className="col-12 col-md-3 mb-1 mb-md-0">
                 <div className="question-section-indicator">
                   <span className="question-section">{convertToBanglaNumber(currentQuestion.id)}</span>
                   <span className="section-indicator">১</span>
@@ -171,7 +171,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
               </div>
               
               {/* Timer Section */}
-              <div className="col-12 col-md-3 mb-2 mb-md-0">
+              <div className="col-12 col-md-3 mb-1 mb-md-0">
                 <div className="timer-section d-flex align-items-center justify-content-md-center">
                   <AccessTimeIcon className="clock-icon" />
                   <div className="timer-text-container ms-2">
@@ -185,8 +185,8 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
               
               {/* Progress Section */}
               <div className="col-12 col-md-3 mb-2 mb-md-0">
-                <div className="progress-section d-flex flex-column align-items-md-center">
-                  <div className="progress-container d-flex align-items-center">
+                <div className="progress-section d-flex flex-column align-items-center">
+                  <div className="progress-container d-flex align-items-center justify-content-center">
                     <div className="progress-bar">
                       <div 
                         className="progress-fill" 
@@ -194,7 +194,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
                       ></div>
                     </div>
                   </div>
-                  <div className="progress-text mt-1">অগ্রগতি {convertToBanglaNumber(progress)}%</div>
+                  <div className="progress-text">অগ্রগতি {convertToBanglaNumber(progress)}%</div>
                 </div>
               </div>
               
@@ -213,9 +213,9 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
 
         {/* Sub-Top Bar */}
         <div className="col-12 px-0 sub-top-bar">
-          <div className="container-fluid px-3 py-2">
+          <div className="container-fluid px-2 py-1">
             <div className="row align-items-center">
-              <div className="col-12 col-md-6 mb-2 mb-md-0">
+              <div className="col-12 col-md-6 mb-1 mb-md-0">
                 <div className="sub-left-section d-flex align-items-baseline">
                   <div className="exam-title">পরীক্ষা:</div>
                   <div className="exam-subtitle ms-2">{examConfig.examTitle}</div>
@@ -234,15 +234,15 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
 
       {/* Main Content Area */}
       <div className="row mx-0 main-content-wrapper">
-        <div className="container-fluid px-3">
-          <div className="row">
+        <div className="container-fluid px-0">
+          <div className="row mx-0">
             {/* Sidebar */}
             <div className="col-12 col-sm-1 col-md-1 col-lg-1 px-0 sidebar-container">
-              <div className="sidebar d-flex flex-column align-items-center py-3">
+              <div className="sidebar d-flex flex-column align-items-center py-2">
                 {questions.map((_, index) => (
                   <button
                     key={index}
-                    className={`sidebar-button mb-2 ${currentQuestionIndex === index ? 'active' : ''}`}
+                    className={`sidebar-button ${currentQuestionIndex === index ? 'active' : ''}`}
                     onClick={() => handleQuestionChange(index)}
                   >
                     {index + 1}
@@ -271,28 +271,22 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
       </div>
 
       {/* Bottom Bar */}
-      <div className="row mx-0 bottom-bar-container">
-        <div className="container-fluid px-3">
-          <div className="row">
-            <div className="col-12 px-0">
-              <div className="bottom-bar d-flex justify-content-between align-items-center py-2">
-                <button 
-                  className="nav-button prev-button btn"
-                  onClick={handlePrevious}
-                  disabled={currentQuestionIndex === 0}
-                >
-                  &lt; ফেরত যান
-                </button>
-                <button 
-                  className="nav-button next-button btn"
-                  onClick={handleNext}
-                  disabled={currentQuestionIndex === questions.length - 1}
-                >
-                  এগিয়ে যান &gt;
-                </button>
-              </div>
-            </div>
-          </div>
+      <div className="bottom-bar-container">
+        <div className="bottom-bar">
+          <button 
+            className="nav-button prev-button btn"
+            onClick={handlePrevious}
+            disabled={currentQuestionIndex === 0}
+          >
+            &lt; ফেরত যান
+          </button>
+          <button 
+            className="nav-button next-button btn"
+            onClick={handleNext}
+            disabled={currentQuestionIndex === questions.length - 1}
+          >
+            এগিয়ে যান &gt;
+          </button>
         </div>
       </div>
     </div>
