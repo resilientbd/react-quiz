@@ -239,14 +239,14 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
         >
-          পূর্ববর্তী প্রশ্ন
+          &lt; ফেরত যান
         </button>
         <button 
           className="nav-button next-button" 
           onClick={handleNext}
           disabled={currentQuestionIndex === questions.length - 1}
         >
-          পরবর্তী প্রশ্ন
+          এগিয়ে যান &gt;
         </button>
       </div>
     </div>
