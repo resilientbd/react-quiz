@@ -5,6 +5,12 @@ import './QuizScreen.css';
 import MainContent from './MainContent';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
+// Function to convert English numbers to Bangla numbers
+const convertToBanglaNumber = (num: number): string => {
+  const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return num.toString().split('').map(digit => banglaDigits[parseInt(digit)]).join('');
+};
+
 interface QuizScreenProps {
   questions: Question[];
   updateQuestions: (questions: Question[]) => void;
@@ -117,12 +123,15 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
     }
   };
 
-  // Format time as HH:MM:SS
+  // Format time as HH:MM:SS with Bangla numbers
   const formatTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const banglaHrs = convertToBanglaNumber(hrs);
+    const banglaMins = convertToBanglaNumber(mins);
+    const banglaSecs = convertToBanglaNumber(secs);
+    return `${banglaHrs.toString().padStart(2, '০')}:${banglaMins.toString().padStart(2, '০')}:${banglaSecs.toString().padStart(2, '০')}`;
   };
 
   // Get timer color based on remaining time
@@ -153,7 +162,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
         <div className="first-top-bar-content">
           {/* Info Section */}
           <div className="question-section-indicator">
-            <span className="question-section">{currentQuestion.id}</span>
+            <span className="question-section">{convertToBanglaNumber(currentQuestion.id)}</span>
             <span className="section-indicator">১</span>
           </div>
           

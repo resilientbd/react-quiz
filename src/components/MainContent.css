@@ -78,16 +78,16 @@
 }
 
 .option-label:hover {
-  background: #F5F9FF;
+  background: #FFF9C4;
   box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  border-color: #BBDEFB;
+  border-color: #FFF9C4;
   transform: translateY(-2px);
 }
 
 .option-label.selected {
-  background: #E3F2FD;
-  border-color: #2196F3;
-  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.15);
+  background: #FFF9C4;
+  border-color: #BF360C;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.35);
 }
 
 .option-label input[type="radio"] {
@@ -96,7 +96,7 @@
   cursor: pointer;
   width: 18px;
   height: 18px;
-  accent-color: #2196F3;
+  accent-color: #FFF9C4;
 }
 
 .option-label span {
