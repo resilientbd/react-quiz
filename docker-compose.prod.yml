@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: faisalnybsys/react-quiz
+    image: faisalnybsys/react-quiz:1.0
     container_name: quizapp-production
     ports:
       - "80:80"
