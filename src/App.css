@@ -3,7 +3,8 @@
 }
 
 body {
-  margin: 0;
+  margin-left: 10%;
+  margin-right: 10%;
   font-family: 'Noto Sans Bengali', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

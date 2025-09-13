@@ -156,107 +156,144 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="quiz-container">
-      {/* First Top Bar */}
-      <div className="first-top-bar">
-        <div className="first-top-bar-content">
-          {/* Info Section */}
-          <div className="question-section-indicator">
-            <span className="question-section">{convertToBanglaNumber(currentQuestion.id)}</span>
-            <span className="section-indicator">১</span>
-          </div>
-          
-          {/* Timer Section */}
-          <div className="timer-section">
-            <AccessTimeIcon className="clock-icon" />
-            <div className="timer-text-container">
-              <div className="timer-label">বিভাগের সময় অবশিষ্ট রয়েছে</div>
-              <div className={`timer-value ${getTimerColorClass(timeLeft)}`}>
-                {formatTime(timeLeft)}
+    <div className="container-fluid px-0 quiz-container">
+      <div className="row mx-0">
+        {/* First Top Bar */}
+        <div className="col-12 px-0 first-top-bar">
+          <div className="container-fluid px-3 py-2">
+            <div className="row align-items-center">
+              {/* Info Section */}
+              <div className="col-12 col-md-3 mb-2 mb-md-0">
+                <div className="question-section-indicator">
+                  <span className="question-section">{convertToBanglaNumber(currentQuestion.id)}</span>
+                  <span className="section-indicator">১</span>
+                </div>
+              </div>
+              
+              {/* Timer Section */}
+              <div className="col-12 col-md-3 mb-2 mb-md-0">
+                <div className="timer-section d-flex align-items-center justify-content-md-center">
+                  <AccessTimeIcon className="clock-icon" />
+                  <div className="timer-text-container ms-2">
+                    <div className="timer-label">বিভাগের সময় অবশিষ্ট রয়েছে</div>
+                    <div className={`timer-value ${getTimerColorClass(timeLeft)}`}>
+                      {formatTime(timeLeft)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Progress Section */}
+              <div className="col-12 col-md-3 mb-2 mb-md-0">
+                <div className="progress-section d-flex flex-column align-items-md-center">
+                  <div className="progress-container d-flex align-items-center">
+                    <div className="progress-bar">
+                      <div 
+                        className="progress-fill" 
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className="progress-text mt-1">অগ্রগতি {convertToBanglaNumber(progress)}%</div>
+                </div>
+              </div>
+              
+              {/* Button Section */}
+              <div className="col-12 col-md-3 d-flex justify-content-md-end">
+                <button 
+                  className="finish-button btn"
+                  onClick={() => alert("পরীক্ষা সমাপ্ত হয়েছে!")}
+                >
+                  পরীক্ষা সমাপ্ত করুন
+                </button>
               </div>
             </div>
           </div>
-          
-          {/* Progress Section */}
-          <div className="progress-section">
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill" 
-                  style={{ width: `${progress}%` }}
-                ></div>
+        </div>
+
+        {/* Sub-Top Bar */}
+        <div className="col-12 px-0 sub-top-bar">
+          <div className="container-fluid px-3 py-2">
+            <div className="row align-items-center">
+              <div className="col-12 col-md-6 mb-2 mb-md-0">
+                <div className="sub-left-section d-flex align-items-baseline">
+                  <div className="exam-title">পরীক্ষা:</div>
+                  <div className="exam-subtitle ms-2">{examConfig.examTitle}</div>
+                </div>
+              </div>
+              <div className="col-12 col-md-6">
+                <div className="sub-right-section d-flex justify-content-md-end align-items-baseline">
+                  <div className="student-info-label">পরীক্ষার্থী:</div>
+                  <div className="student-name ms-2">{examConfig.studentName}</div>
+                </div>
               </div>
             </div>
-            <div className="progress-text">অগ্রগতি {convertToBanglaNumber(progress)}%</div>
           </div>
-          
-          {/* Button Section */}
-          <button 
-            className="finish-button"
-            onClick={() => alert("পরীক্ষা সমাপ্ত হয়েছে!")}
-          >
-            পরীক্ষা সমাপ্ত করুন
-          </button>
         </div>
       </div>
 
-      {/* Sub-Top Bar */}
-      <div className="sub-top-bar">
-        <div className="sub-left-section">
-          <div className="exam-title">পরীক্ষা:</div>
-          <div className="exam-subtitle">{examConfig.examTitle}</div>
-        </div>
-        <div className="sub-right-section">
-          <div className="student-info-label">পরীক্ষার্থী:</div>
-          <div className="student-name">{examConfig.studentName}</div>
-        </div>
-      </div>
+      {/* Main Content Area */}
+      <div className="row mx-0 main-content-wrapper">
+        <div className="container-fluid px-3">
+          <div className="row">
+            {/* Sidebar */}
+            <div className="col-12 col-sm-1 col-md-1 col-lg-1 px-0 sidebar-container">
+              <div className="sidebar d-flex flex-column align-items-center py-3">
+                {questions.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`sidebar-button mb-2 ${currentQuestionIndex === index ? 'active' : ''}`}
+                    onClick={() => handleQuestionChange(index)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                {/* Info button at the bottom */}
+                <button
+                  className="sidebar-button info-button mt-auto"
+                  onClick={() => alert('Info button clicked')}
+                >
+                  ℹ️
+                </button>
+              </div>
+            </div>
 
-      <div className="main-content">
-        {/* Sidebar */}
-        <div className="sidebar">
-          {questions.map((_, index) => (
-            <button
-              key={index}
-              className={`sidebar-button ${currentQuestionIndex === index ? 'active' : ''}`}
-              onClick={() => handleQuestionChange(index)}
-            >
-              {index + 1}
-            </button>
-          ))}
-          {/* Info button at the bottom */}
-          <button
-            className="sidebar-button info-button"
-            onClick={() => alert('Info button clicked')}
-          >
-            ℹ️
-          </button>
+            {/* Main Question Area */}
+            <div className="col-12 col-sm-11 col-md-11 col-lg-11 px-0">
+              <MainContent 
+                question={currentQuestion}
+                selectedOption={selectedOptions[questions[currentQuestionIndex].id]}
+                onOptionSelect={handleOptionSelect}
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Main Question Area - Using MainContent component */}
-        <MainContent 
-          question={currentQuestion}
-          selectedOption={selectedOptions[questions[currentQuestionIndex].id]}
-          onOptionSelect={handleOptionSelect}
-        />
       </div>
 
       {/* Bottom Bar */}
-      <div className="bottom-bar">
-        <button 
-          className="nav-button prev-button" 
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-        >
-          &lt; ফেরত যান
-        </button>
-        <button 
-          className="nav-button next-button" 
-          onClick={handleNext}
-          disabled={currentQuestionIndex === questions.length - 1}
-        >
-          এগিয়ে যান &gt;
-        </button>
+      <div className="row mx-0 bottom-bar-container">
+        <div className="container-fluid px-3">
+          <div className="row">
+            <div className="col-12 px-0">
+              <div className="bottom-bar d-flex justify-content-between align-items-center py-2">
+                <button 
+                  className="nav-button prev-button btn"
+                  onClick={handlePrevious}
+                  disabled={currentQuestionIndex === 0}
+                >
+                  &lt; ফেরত যান
+                </button>
+                <button 
+                  className="nav-button next-button btn"
+                  onClick={handleNext}
+                  disabled={currentQuestionIndex === questions.length - 1}
+                >
+                  এগিয়ে যান &gt;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
