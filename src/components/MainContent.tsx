@@ -16,7 +16,10 @@ const MainContent: React.FC<MainContentProps> = ({
   return (
     <div className="main-content">
       <div className="question-container">
-        <p className="question-text">{question.question}</p>
+        <div className="question-header">
+          <div className="question-number">{question.id}</div>
+          <p className="question-text">{question.question}</p>
+        </div>
         <div className="options-container">
           {question.options.map((option, index) => (
             <div key={index} className="option-item">

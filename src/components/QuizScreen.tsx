@@ -212,9 +212,16 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
               className={`sidebar-button ${currentQuestionIndex === index ? 'active' : ''}`}
               onClick={() => handleQuestionChange(index)}
             >
-              {index + 1}{currentQuestionIndex === index ? ' ▶' : ''}
+              {index + 1}
             </button>
           ))}
+          {/* Info button at the bottom */}
+          <button
+            className="sidebar-button info-button"
+            onClick={() => alert('Info button clicked')}
+          >
+            ℹ️
+          </button>
         </div>
 
         {/* Main Question Area - Using MainContent component */}
