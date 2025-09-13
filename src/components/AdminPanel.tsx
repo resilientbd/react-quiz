@@ -18,7 +18,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ questions, updateQuestions, loa
   });
   const [examTitle, setExamTitle] = useState('লোডার এবং আনলোডার ওয়ার্কার - বাংলা');
   const [studentName, setStudentName] = useState('Hasan Al Mamun');
-  const [totalTime, setTotalTime] = useState(900);
+  const [totalTime, setTotalTime] = useState(15); // Default to 15 minutes
 
   console.log('AdminPanel rendering with questions:', questions.length);
 
@@ -29,7 +29,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ questions, updateQuestions, loa
       const config = JSON.parse(savedConfig);
       setExamTitle(config.examTitle || 'লোডার এবং আনলোডার ওয়ার্কার - বাংলা');
       setStudentName(config.studentName || 'Hasan Al Mamun');
-      setTotalTime(config.totalTime || 900);
+      // Convert seconds to minutes for display
+      setTotalTime(config.totalTime ? Math.floor(config.totalTime / 60) : 15);
     }
   }, []);
 
@@ -38,7 +39,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ questions, updateQuestions, loa
     const config = {
       examTitle,
       studentName,
-      totalTime
+      totalTime: totalTime * 60 // Convert minutes to seconds
     };
     localStorage.setItem('examConfig', JSON.stringify(config));
     alert('কনফিগারেশন সংরক্ষিত হয়েছে!');
@@ -175,13 +176,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ questions, updateQuestions, loa
         </div>
         
         <div className="form-group">
-          <label>মোট সময় (সেকেন্ড):</label>
+          <label>মোট সময় (মিনিট):</label>
           <input
             type="number"
             value={totalTime}
-            onChange={(e) => setTotalTime(parseInt(e.target.value) || 900)}
-            min="60"
-            max="3600"
+            onChange={(e) => setTotalTime(parseInt(e.target.value) || 15)}
+            min="1"
+            max="60"
             className="short-input"
           />
         </div>

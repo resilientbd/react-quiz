@@ -35,6 +35,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ questions, updateQuestions }) =
       if (savedConfig) {
         const config = JSON.parse(savedConfig);
         setExamConfig(config);
+        setTimeLeft(config.totalTime);
       }
     };
 
